@@ -4,7 +4,7 @@
 	        <div class="container">
 	        	<div style="margin-top: 300px;margin-left: 500px;">
 	        		<h2>Adding Feed Url </h2>
-	        		<%= form_for @feeds, url: {action: "create"} do |f| %>
+	        		<%= form_for @feed_url, url: {action: "create"} do |f| %>
 					  <%= f.text_field :feed_url %>
 					  <%= f.submit "Create" %>
 					<% end %>
