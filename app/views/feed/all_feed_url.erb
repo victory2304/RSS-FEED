@@ -1,0 +1,11 @@
+<div class="navbar-inner">
+  	<div class="container" >
+  		<h2>Listing Feed URLS</h2>
+  		<div style="margin-top:100px;">
+  		<%@feed_urls.each do |feed_url|%>
+  			<%=link_to feed_url.feed_url ,feed_path(feed_url.id) %><br>
+  		<%end%>	
+  		</div>
+  		<div style="margin-top:800px;"></div>
+  	</div>
+</div>

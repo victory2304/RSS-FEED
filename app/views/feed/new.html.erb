@@ -1,0 +1,16 @@
+<% if user_signed_in? %>
+	<div class="navbar">
+	      <div class="navbar-inner">
+	        <div class="container">
+	        	<div style="margin-top: 300px;margin-left: 500px;">
+	        		<h2>Adding Feed Url </h2>
+	        		<%= form_for @feeds, url: {action: "create"} do |f| %>
+					  <%= f.text_field :feed_url %>
+					  <%= f.submit "Create" %>
+					<% end %>
+	        	</div>
+	        	<div style="margin-top: 600px;"></div>
+	        </div>
+	    </div>
+	</div>
+<%end%>
