@@ -20,9 +20,14 @@ group :assets do
 
   gem 'uglifier', '>= 1.0.3'
 end
-
+group :test, :development do
+  gem 'rspec-rails'
+  gem 'cucumber-rails', :require => false
+  gem 'capybara'
+  gem 'database_cleaner'
+end
 gem 'jquery-rails'
-
+gem 'rake', '~> 10.3.2'
 gem "therubyracer"
 gem "less-rails"
 gem 'twitter-bootstrap-rails'

@@ -21,3 +21,15 @@ development:
   password:
   template: template0
   port: 5432
+
+test: &test
+  adapter: postgresql
+  encoding: utf8
+  database: RSS-FEED_test
+  pool: 5
+  username: tiatrosdev
+  password:
+  template: template0
+  port: 5432
+cucumber:
+  <<: *test
