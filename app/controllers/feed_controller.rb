@@ -1,6 +1,6 @@
 class FeedController < ApplicationController
   before_filter :authenticate_user!
-  caches_action :index, :show
+  # caches_action :index, :show
   def index
   	@feeds = FeedEntry.where(:user_id => current_user.id).limit(50).order("published_at desc")
   end
