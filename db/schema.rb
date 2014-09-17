@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140915134056) do
+ActiveRecord::Schema.define(:version => 20140917094931) do
 
   create_table "feed_entries", :force => true do |t|
     t.string   "name"
@@ -22,12 +22,14 @@ ActiveRecord::Schema.define(:version => 20140915134056) do
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
     t.integer  "feed_url_id"
+    t.integer  "user_id"
   end
 
   create_table "feed_urls", :force => true do |t|
     t.string   "feed_url"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "user_id"
   end
 
   create_table "users", :force => true do |t|
