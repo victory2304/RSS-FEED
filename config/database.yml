@@ -17,19 +17,22 @@ development:
   encoding: utf8
   database: RSS-FEED_development
   pool: 5
-  username: tiatrosdev
-  password:
-  template: template0
-  port: 5432
+  username: postgres
+  password: tiatrosdev
 
-test: &test
+
+test: 
   adapter: postgresql
   encoding: utf8
   database: RSS-FEED_test
   pool: 5
-  username: tiatrosdev
-  password:
-  template: template0
-  port: 5432
-cucumber:
-  <<: *test
+  username: postgres
+  password: tiatrosdev
+
+production:
+  adapter: postgresql
+  encoding: utf8
+  database: RSS-FEED_production
+  pool: 5
+  username: postgres
+  password: tiatrosdev
