@@ -19,6 +19,8 @@ development:
   pool: 5
   username: postgres
   password: tiatrosdev
+  port: 5432
+  min_messages: WARNING
 
 
 test: 
@@ -28,6 +30,8 @@ test:
   pool: 5
   username: postgres
   password: tiatrosdev
+  port: 5432
+  min_messages: WARNING
 
 production:
   adapter: postgresql
@@ -36,3 +40,5 @@ production:
   pool: 5
   username: postgres
   password: tiatrosdev
+  port: 5432
+  min_messages: WARNING
