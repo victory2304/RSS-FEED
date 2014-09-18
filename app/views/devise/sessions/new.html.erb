@@ -1,25 +1,25 @@
 <div class="navbar-inner">
   	<div class="container" >
   		<div class="row">
-				<div class="span2"><h2>Sign in</h2></div>
-				<div style="padding-top:100px;"></div>
-				<div class="span6" style="margin-left: 300px;">
+			<div class="span2"><h3>Sign in</h3></div>
+			<div style="padding-top:100px;"></div>
+			<div class="span6" style="margin-left: 300px;">
 
-					<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-					  <div><%= f.label :email %><br />
-					  <%= f.email_field :email %></div>
+				<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+				  <div><%= f.label :email %><br />
+				  <%= f.email_field :email %></div>
 
-					  <div><%= f.label :password %><br />
-					  <%= f.password_field :password %></div>
+				  <div><%= f.label :password %><br />
+				  <%= f.password_field :password %></div>
 
-					  <% if devise_mapping.rememberable? -%>
-					    <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
-					  <% end -%>
+				  <% if devise_mapping.rememberable? -%>
+				    <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
+				  <% end -%>
 
-					  <div><%= f.submit "Sign in" %></div>
-					<% end %>
-				</div>
-				<div style="padding-top:300px;"></div>
+				  <div><%= f.submit "Sign in" %></div>
+				<% end %>
+			</div>
+			<div style="padding-top:300px;"></div>
 			<%= render "devise/shared/links" %>
 			<div style="padding-top:500px;"></div>
 		</div>
