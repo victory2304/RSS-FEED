@@ -1,57 +1,52 @@
-<% if user_signed_in? %>
-<div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="brand" href="">RSS</a>
-          <div class="nav-collapse collapse">
-            <ul class="nav">
-              <li class="">
-                <a href="./index.html">Home</a>
-              </li>
-              <li class="">
-              	<%= link_to 'Adding Feed', new_feed_path%>
-              </li>
-              <li class="">
-                <a href="/feed">All Feeds</a>
-              </li>
-              <li class="">
-                <a href="">About RSS Feeds</a>
-              </li>
-              	<div class="span4" style="margin-left:300px;">
-              		<%= render :partial=>"feed/landing"%>
-              	</div>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  <%end%>
 <div class="navbar">
-  <div class="navbar-inner">
-  	<div class="container">
-  		<div class="row">	
-  			<div class="span12">
-  				<% if !user_signed_in? %>
-					<h1>Ready to RSS FEED platform</h1>
-					<p>Addding your desired RSS FeedS and check whenever you want</p>
-				<%end%>
-			</div>
-			<div class="span4">
-				<%= render :partial=>"feed/landing" unless user_signed_in?  %>
-			</div>
-		</div>	
-		<div style="padding-top:920px;">
-		</div>
-		
-		
-	</div>
-	</div>
-<!--  	<div style="padding-top:850px;">
+    <div class="navbar-inner">
+        <div class="container">
+            <div class="row">	
+                <div class="span12">
+                    <% if !user_signed_in? %>
+                        <h1>Ready to RSS FEED platform</h1>
+                        <p>Addding your desired RSS FeedS and check whenever you want</p>
+                    <%end%>
+                </div>
+                <div class="span4">
+                    <%= render :partial=>"feed/landing" unless user_signed_in?  %>
+                </div>
+            </div>	
+        </div> 
+    </div>
 
-	</div> -->
+
+    <div class="bs-example">
+        <div id="myCarousel" class="carousel slide span10" data-interval="3000" data-ride="carousel">
+                <!-- Carousel indicators -->
+            <ol class="carousel-indicators">
+                <% 5.times do |i|%>
+                    <li data-target="#myCarousel" data-slide-to="#{i}" <%if i==1 %>class="active" <%end%>></li>
+                <%end%>
+            </ol>   
+        <!-- Carousel items -->
+            <div class="carousel-inner ">
+                <%@sample_feed.entries.first(5).each_with_index do |feed,i|%>
+                    <div class="item <%if i==1 %>active<%end%>">
+                        <p><%= feed.summary.html_safe%></p>
+                        <div class="">
+                            <h3><%= feed.title %></h3>
+                        </div>
+                    </div>
+                <%end%>
+            </div>
+        
+        <!-- Carousel nav -->
+            <a class="carousel-control left" href="#myCarousel" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="carousel-control right" href="#myCarousel" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+        </div>
+
+    </div>
 </div>
+<script type="text/javascript">
+  $('.carousel').carousel()
+</script>

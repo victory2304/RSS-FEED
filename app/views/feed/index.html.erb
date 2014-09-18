@@ -1,29 +1,30 @@
+<div class="navbar">
+	<div class="navbar-inner">
+	  	<div class="container">
+			<div id="recent_feeds">
+			  <h3>You are on Feed Site</h3>
+			  <div class="row">
+			  	<div class="span8">
+			  		<form class="form-search">
+				  		<input type="text" class="input-medium search-query span6">
+				  		<button type="submit" class="btn">Search</button>
+			  		</form>
+			  	</div>
+			  	<div class="span4">
+			  		<%= link_to  image_tag('/assets/rss.png', :size => '44x44', :alt => 'All feeds')+'', feed_index_path  %>
+			  	</div>
+			  </div>
 
-<div class="navbar-inner">
-  	<div class="container">
-		<div id="recent_feeds">
-		  <h3>You are on Feed Site</h3>
-		  <div class="row">
-		  	<div class="span8">
-		  		<form class="form-search">
-			  		<input type="text" class="input-medium search-query span6">
-			  		<button type="submit" class="btn">Search</button>
-		  		</form>
-		  	</div>
-		  	<div class="span4">
-		  		<%= link_to  image_tag('/assets/rss.png', :size => '44x44', :alt => 'All feeds')+'', feed_index_path  %>
-		  	</div>
-		  </div>
 
-
-		  <ul style="list-style-type: none;">
-			  <% @feeds.each do |feed|%>
-			  	<div class="row" style="padding-top: 50px;">
-				  <div class="span6 hero-unit"><li><%= feed.summary.html_safe %></li> </div> 
-				  <div class="span2"> <li><%= link_to h(feed.name), feed.url %></li></div>
-				</div>  
-			  <% end %>
-		  </ul>
+			  <ul style="list-style-type: none;">
+				  <% @feeds.each do |feed|%>
+				  	<div class="row" style="padding-top: 50px;">
+					  <div class="span6 hero-unit"><li><%= feed.summary.html_safe %></li> </div> 
+					  <div class="span2"> <li><%= link_to h(feed.name), feed.url %></li></div>
+					</div>  
+				  <% end %>
+			  </ul>
+			</div>
 		</div>
 	</div>
 </div>

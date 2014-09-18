@@ -2,14 +2,18 @@
 	<div class="navbar">
 	      <div class="navbar-inner">
 	        <div class="container">
-	        	<div style="margin-top: 300px;margin-left: 500px;">
-	        		<h2>Adding Feed Url </h2>
-	        		<%= form_for @feed_url, url: {action: "create"} do |f| %>
-					  <%= f.text_field :feed_url %>
-					  <%= f.submit "Create" %>
-					<% end %>
+	        	<div class="row">
+	        		<div class="span8" style="margin-top: 250px;margin-left: 280px;">
+		        		<h4>Adding Feed Url </h2>
+		        		<%= form_for @feed_url, url: {action: "create"} do |f| %>
+						  <%= f.text_field :feed_url %>
+						  <%= f.submit  "Create" ,:style => 'margin-top: -10px;'%>
+						<% end %>
+	        		</div>
+	        		<div class="span4" style="margin-top: 310px;">
+	        	
+	        		</div>
 	        	</div>
-	        	<div style="margin-top: 600px;"></div>
 	        </div>
 	    </div>
 	</div>

@@ -1,3 +1,21 @@
 // Place all the styles related to the feed controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+h2{
+    margin: 0;     
+    color: lightgray;
+    padding-top: 90px;
+    font-size: 52px;
+    font-family: "trebuchet ms", sans-serif;    
+}
+.item{
+    background-image: url("/assets/Sky_Blue.png");    
+    text-align: center;
+    height: 300px !important;
+}
+.carousel{
+    margin-top: 20px;
+}
+.bs-example{
+  margin: 20px;
+}
