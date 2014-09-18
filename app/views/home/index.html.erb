@@ -1,14 +1,14 @@
-<div class="navbar">
-    <div class="navbar-inner">
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner ">
         <div class="container">
             <div class="row">	
-                <div class="span12">
+                <div class="span8 navbar-text">
                     <% if !user_signed_in? %>
                         <h1>Ready to RSS FEED platform</h1>
                         <p>Addding your desired RSS FeedS and check whenever you want</p>
                     <%end%>
                 </div>
-                <div class="span4">
+                <div class="">
                     <%= render :partial=>"feed/landing" unless user_signed_in?  %>
                 </div>
             </div>	
