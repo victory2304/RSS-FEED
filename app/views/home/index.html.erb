@@ -17,25 +17,23 @@
 
     <div class="bs-example">
         <div id="myCarousel" class="carousel slide span10" data-interval="3000" data-ride="carousel">
-                <!-- Carousel indicators -->
             <ol class="carousel-indicators">
-                <% 5.times do |i|%>
+                <% 10.times do |i|%>
                     <li data-target="#myCarousel" data-slide-to="#{i}" <%if i==1 %>class="active" <%end%>></li>
                 <%end%>
             </ol>   
-        <!-- Carousel items -->
             <div class="carousel-inner">
-                <%@sample_feed.entries.first(5).each_with_index do |feed,i|%>
-                    <div class="item <%if i==1 %>active<%end%>" >
-                        <p style="margin-top: 10px;"><%= feed.summary.html_safe%></p>
-                        <div class="">
+                <%@sample_feed.entries.first(10).each_with_index do |feed,i|%>
+                <%html = Nokogiri::HTML.fragment(feed.summary)%>
+                    <div class="item <%if i==1 %>active<%end%>" style="background-image: url('<%= html.css('img').map{ |i| i['src'] }.first%>') ;background-repeat: no-repeat;">
+                        
+                        <div class="carousel-caption" style="color: navajowhite">
                             <h3><%= feed.title %></h3>
                         </div>
                     </div>
                 <%end%>
             </div>
         
-        <!-- Carousel nav -->
             <a class="carousel-control left" href="#myCarousel" data-slide="prev">
                 <span class="glyphicon glyphicon-chevron-left"></span>
             </a>
@@ -45,7 +43,25 @@
         </div>
 
     </div>
+
 </div>
+     <% if !user_signed_in? %>
+<div class="navbar navbar-inverse navbar-fixed-bottom">
+    <div class="navbar-inner ">
+        <div class="container">
+            <div class="row" style="color:darkgray">   
+                <marquee>
+                    <h1>Yahoo Cricket with Top 10 news</h1>
+                    <p style="margin-left:100px;">Example of RSS FeedS by yahoo crickt stories</p>
+                 </marquee>   
+
+            </div>  
+        </div> 
+    </div>
+ <%end%>
+
+
 <script type="text/javascript">
   $('.carousel').carousel()
+
 </script>
