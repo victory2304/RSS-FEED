@@ -1,0 +1,177 @@
+<style type="text/css">
+	.pane {
+    margin: 20px;
+    text-align: center;
+}
+
+video {
+    width: 100%;
+}
+</style> 
+<div style="margin-top: 100px;">  
+    <div class="pane" id="pane_0">
+        <!-- <img src="http://static.tumblr.com/uzwqx7a/8VIm8jofz/logo.png"> -->
+    </div>
+    
+    <div class="pane" id="pane_1" style="display: none">
+        <input type="text" placeholder="Conference Name" id="room_field" class="form-control">
+        <br>
+        <input type="button" value="Join my Conference" id="join" class="btn btn-info btn-default btn-block">
+    </div>
+    
+    <div class="pane" id="pane_2" style="display: none">
+        <div id="video_container"></div>
+        <input type="button" value="Quit my Conference" id="quit" class="btn btn-danger btn-default btn-block">
+    </div>
+</div>
+<script type="text/javascript">
+var room;
+var members;
+
+// when Bistri API client is ready, function
+// "onBistriConferenceReady" is invoked
+onBistriConferenceReady = function () {
+    
+    // test if the browser is WebRTC compatible
+    if ( !BistriConference.isCompatible() ) {
+        // if the browser is not compatible, display an alert
+        alert( "your browser is not WebRTC compatible !" );
+        // then stop the script execution
+        return;
+    }
+
+    // initialize API client with application keys
+    // if you don't have your own, you can get them at:
+    // https://api.developers.bistri.com/login
+    BistriConference.init( {
+        appId: "fed6f9d3",
+        appKey: "a9d7cddccc16155109a2044b1330884f"
+    } );
+    
+    /* Set events handler */
+
+    // when local user is connected to the server
+    BistriConference.signaling.addHandler( "onConnected", function () {
+        // show pane with id "pane_1"
+        showPanel( "pane_1" );
+    } );
+
+    // when an error occured on the server side
+    BistriConference.signaling.addHandler( "onError", function ( error ) {
+        // display an alert message
+        alert( error.text + " (" + error.code + ")" );
+    } );
+
+    // when the user has joined a room
+    BistriConference.signaling.addHandler( "onJoinedRoom", function ( data ) {
+        // set the current room name
+        room = data.room;
+        members = data.members;
+        // ask the user to access to his webcam
+        BistriConference.startStream( "webcamSD", function( localStream ){
+            // when webcam access has been granted
+            // show pane with id "pane_2"
+            showPanel( "pane_2" );
+            // insert the local webcam stream into div#video_container node
+            BistriConference.attachStream( localStream, q( "#video_container" ) );
+            // then, for every single members present in the room ...
+            for ( var i=0, max=members.length; i<max; i++ ) {
+                // ... request a call
+                BistriConference.call( members[ i ].id, room );
+            }
+        } );
+    } );
+
+    // when an error occurred while trying to join a room
+    BistriConference.signaling.addHandler( "onJoinRoomError", function ( error ) {
+        // display an alert message
+       alert( error.text + " (" + error.code + ")" );
+    } );
+    
+    // when the local user has quitted the room
+    BistriConference.signaling.addHandler( "onQuittedRoom", function( room ) {
+        // show pane with id "pane_1"
+        showPanel( "pane_1" );
+        // stop the local stream
+        BistriConference.stopStream();
+    } );
+    
+    // when a new remote stream is received
+    BistriConference.streams.addHandler( "onStreamAdded", function ( remoteStream ) {
+        // insert the new remote stream into div#video_container node
+        BistriConference.attachStream( remoteStream, q( "#video_container" ) );
+    } );
+    
+    // when a local or a remote stream has been stopped
+    BistriConference.streams.addHandler( "onStreamClosed", function ( stream ) {
+        // remove the stream from the page
+        BistriConference.detachStream( stream );
+    } );
+    
+    // when a local stream cannot be retrieved
+    BistriConference.streams.addHandler( "onStreamError", function( error ){   
+        switch( error.name ){
+            case "PermissionDeniedError":
+                alert( "Webcam access has not been allowed" );
+                BistriConference.quitRoom( room );
+                break
+            case "DevicesNotFoundError":
+                if( confirm( "No webcam/mic found on this machine. Process call anyway ?" ) ){
+                    // show pane with id "pane_2"
+                    showPanel( "pane_2" );
+                    for ( var i=0, max=members.length; i<max; i++ ) {
+                        // ... request a call
+                        BistriConference.call( members[ i ].id, room );
+                    }
+                }
+                else{
+                    BistriConference.quitRoom( room );  
+                }
+                break
+        }
+    } );
+
+    // bind function "joinConference" to button "Join Conference Room"
+    q( "#join" ).addEventListener( "click", joinConference );
+    
+    // bind function "quitConference" to button "Quit Conference Room"
+    q( "#quit" ).addEventListener( "click", quitConference );
+    
+    // open a new session on the server
+    BistriConference.connect();
+}
+
+// when button "Join Conference Room" has been clicked
+function joinConference(){
+    var roomToJoin = q( "#room_field" ).value;
+    // if "Conference Name" field is not empty ...
+    if( roomToJoin ){
+        // ... join the room
+        BistriConference.joinRoom( roomToJoin );
+    }
+    else{
+        // otherwise, display an alert
+        alert( "you must enter a room name !" )
+    }  
+}
+
+// when button "Quit Conference Room" has been clicked
+function quitConference(){
+    // quit the current conference room
+    BistriConference.quitRoom( room );
+}
+
+function showPanel( id ){ 
+    var panes = document.querySelectorAll( ".pane" );
+    // for all nodes matching the query ".pane"
+    for( var i=0, max=panes.length; i<max; i++ ){
+        // hide all nodes except the one to show
+        panes[ i ].style.display = panes[ i ].id == id ? "block" : "none";
+    };
+}
+
+function q( query ){
+    // return the DOM node matching the query
+    return document.querySelector( query );
+}
+</script>

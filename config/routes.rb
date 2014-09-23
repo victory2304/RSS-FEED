@@ -1,4 +1,6 @@
 RSSFeed::Application.routes.draw do
+  # get "conferance/index"
+  resources :conferance
   devise_for :users
 
   # get "feed/index"
